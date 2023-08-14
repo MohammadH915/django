@@ -1,0 +1,34 @@
+{% load static %}
+<!-- Add this line at the beginning of the template -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title> {{ name }} Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% block content %}
+      <div class="form-container">
+        <h1> {{ name }} Form</h1>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+
+      <script type="text/javascript">
+        // Initialize date-picker for the 'date' field
+        $(document).ready(function() {
+          $(".datepicker").datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'en',
+            todayHighlight: true,
+            autoclose: true,
+          });
+        });
+      </script>
+    {% endblock %}
+</body>
+</html>

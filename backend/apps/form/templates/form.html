@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}My Website{% endblock %}</title>
+    {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <style>
+      .dropdown {
+        position: relative;
+        display: inline;
+        margin-right: 10px; /* Reduce the margin to bring the dropdowns closer */
+      }
+
+      .dropbtn {
+        background-color: #f8f8f8;
+        font-weight: bold;
+        color: black;
+        padding: 10px;
+        font-size: 16px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+
+      .dropdown-content a {
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        color: #555555;
+        font-size: 16px;
+      }
+
+      .dropdown-content a:hover {
+          color: #000000;
+          font-weight: bold;
+      }
+
+      .show {
+        display: block;
+      }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="navbar">
+        <div class="logo">
+          <img src="{% static 'images/logo.png' %}" alt="Logo">
+        </div>
+        <div class="dropdown">
+          <button onclick="toggleDropdown('formDropdown')" class="dropbtn">Form</button>
+          <div id="formDropdown" class="dropdown-content">
+            <a href="/form/inquiry">Inquiry</a>
+            <a href="/form/supplier">Supplier</a>
+            <a href="/form/request">Request</a>
+            <a href="/form/quotation">Quotation</a>
+            <a href="/form/technical-offer">Technical Offer</a>
+            <a href="/form/commercial-offer">Commercial Offer</a>
+            <a href="/form/purchase-order">Purchase Order</a>
+            <a href="/form/forwarder">Forwarder</a>
+            <a href="/form/shipping">Shipping</a>
+            <a href="/form/order-registration">Order Registration</a>
+            <a href="/form/custom-clearance">Custom Clearance</a>
+            <a href="/form/bank-gurantee">Bank Gurantee</a>
+            <a href="/form/financial-report-foreign">Financial Report Foreign</a>
+            <a href="/form/financial-report-irr">Financial Report IRR</a>
+            <a href="/form/advance-payment-supplier">Advance Payment Supplier</a>
+            <a href="/form/balance-payment-supplier">Balance Payment Supplier</a>
+            <a href="/form/forwarder-payment">Forwarder Payment</a>
+            <a href="/form/closed">Closed Form</a>
+            <a href="/form/customer">Customer</a>
+            <a href="/form/expert">Expert</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button onclick="toggleDropdown('searchDropdown')" class="dropbtn">Search</button>
+          <div id="searchDropdown" class="dropdown-content">
+            <!-- Replace these links with your actual search options -->
+            <a href="/search/inquiry">Inquiry</a>
+            <a href="/search/supplier">Supplier</a>
+            <a href="/search/request">Request</a>
+            <a href="/search/quotation">Quotation</a>
+            <a href="/search/technical-offer">Technical Offer</a>
+            <a href="/search/commercial-offer">Commercial Offer</a>
+            <a href="/search/purchase-order">Purchase Order</a>
+            <a href="/search/forwarder">Forwarder</a>
+            <a href="/search/shipping">Shipping</a>
+            <a href="/search/order-registration">Order Registration</a>
+            <a href="/search/custom-clearance">Custom Clearance</a>
+            <a href="/search/bank-gurantee">Bank Gurantee</a>
+            <a href="/search/financial-report-foreign">Financial Report Foreign</a>
+            <a href="/search/financial-report-irr">Financial Report IRR</a>
+            <a href="/search/advance-payment-supplier">Advance Payment Supplier</a>
+            <a href="/search/balance-payment-supplier">Balance Payment Supplier</a>
+            <a href="/search/forwarder-payment">Forwarder Payment</a>
+            <a href="/search/closed">Closed</a>
+            <a href="/search/customer">Customer</a>
+            <a href="/search/expert">Expert</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <script>
+    function toggleDropdown(dropdownId) {
+      var dropdown = document.getElementById(dropdownId);
+      dropdown.classList.toggle("show");
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>
+
+{% load static %}
+<!-- Add this line at the beginning of the template -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title> {{ name }} Form</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% block content %}
+      <div class="form-container">
+        <h1> {{ name }} Form</h1>
+        <form method="post">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <input type="submit" value="Submit">
+        </form>
+      </div>
+
+      <script type="text/javascript">
+        // Initialize date-picker for the 'date' field
+        $(document).ready(function() {
+          $(".datepicker").datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'en',
+            todayHighlight: true,
+            autoclose: true,
+          });
+        });
+      </script>
+    {% endblock %}
+</body>
+</html>
