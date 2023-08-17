@@ -21,7 +21,7 @@ class InquiryForm(forms.ModelForm):
             'deadline': DatePicker(attrs={'class': 'datepicker'}),
             'category': forms.Select(attrs={'style': 'max-height: 150px;'}),
             'inquiry_type': forms.Select(attrs={'style': 'max-height: 150px;'}),
-            'action': forms.Select(attrs={'style': 'max-height: 150px;'}),
+            'status': forms.Select(attrs={'style': 'max-height: 150px;'}),
             'assign': forms.Select(attrs={'style': 'max-height: 150px;'}),
         }
 
@@ -63,7 +63,7 @@ class TechnicalOfferForm(forms.ModelForm):
 
 class RequestForm(forms.ModelForm):
     class Meta:
-        model = Request
+        model = RequestToQuotation
         fields = '__all__'
         widgets = {
             'date': DatePicker(attrs={'class': 'datepicker'}),

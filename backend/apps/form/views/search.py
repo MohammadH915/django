@@ -98,7 +98,7 @@ def technicalOffer_search(request):
 
 
 def request_search(request):
-    return generic_search_view(request, Request, 'find.html', 'requests', 'request_search')
+    return generic_search_view(request, RequestToQuotation, 'find.html', 'requests', 'request_search')
 
 
 def commercialOffer_search(request):

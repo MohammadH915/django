@@ -306,7 +306,7 @@
                 <div class="modal-body">
                     <form id="filterForm" method="GET">
                         {% for field in filter_fields %}
-                            {% if not field|is_description_field %} {# Skip rendering the 'description' field #}
+                            {% if not field|is_note_field %} {# Skip rendering the 'note' field #}
                                 <div class="form-group">
                                     <label for="filter_{{ field.name }}">{{ field.verbose_name }}:</label>
                                     {% if field.choices %}

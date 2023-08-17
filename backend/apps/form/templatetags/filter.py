@@ -9,6 +9,6 @@ def is_date_field(field):
     return field.name in ['date', 'deadline']
 
 
-@register.filter(name='is_description_field')
-def is_description_field(field):
-    return field.name == 'description'
+@register.filter(name='is_note_field')
+def is_note_field(field):
+    return field.name == 'note'
