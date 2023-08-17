@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-#y(qm##m&3pa4i3ib@_4rr@y-h-lbsfya&csq4y^c@!=h7$y9^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    '78.141.224.71',
+]
 
 
 # Application definition
@@ -40,6 +42,8 @@ INSTALLED_APPS = [
     'apps.form',
     'bootstrap_datepicker_plus',
     'clearcache',
+    'django_admin_filters',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -79,9 +83,9 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'django2',
+        'USER': 'django2',
+        'PASSWORD': 'django2',
         'HOST': 'localhost',  # Replace with your PostgreSQL server's address if it's on a different host.
         'PORT': '5432',           # Use the default PostgreSQL port (usually 5432) or specify if different.
     }
@@ -111,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
