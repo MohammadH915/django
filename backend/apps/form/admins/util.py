@@ -24,3 +24,4 @@ class CustomAdminDateWidget(AdminDateWidget):
             attrs = {}
         attrs.update({'autocomplete': 'off', 'class': 'vDateField'})
         super().__init__(attrs=attrs, format=format)
+
