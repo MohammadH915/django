@@ -24,7 +24,7 @@ class InquiryNumber(InputFilter):
             inquiry_number = self.value()
 
             return queryset.filter(
-                Q(inquiry_number=inquiry_number)
+                Q(inquiry_number__icontains=inquiry_number)
             )
 
 
@@ -37,7 +37,7 @@ class Customer(InputFilter):
             customer = self.value()
 
             return queryset.filter(
-                Q(customer=customer)
+                Q(customer__icontains=customer)
             )
 
 
@@ -46,6 +46,7 @@ def get_color(row_number):
         return colors.lightgrey
     else:
         return colors.white
+
 
 class InquiryAdmin(DjangoObjectActions, admin.ModelAdmin):
     list_display = ['inquiry_number', 'status', 'date', 'deadline', 'customer', 'expert', 'category', 'brand']
@@ -71,9 +72,9 @@ class InquiryAdmin(DjangoObjectActions, admin.ModelAdmin):
         # Apply filters to the queryset
         filtered_queryset = queryset
         if inquiry_number_filter:
-            filtered_queryset = filtered_queryset.filter(Q(inquiry_number=inquiry_number_filter))
+            filtered_queryset = filtered_queryset.filter(Q(inquiry_number__icontains=inquiry_number_filter))
         if customer_filter:
-            filtered_queryset = filtered_queryset.filter(Q(customer=customer_filter))
+            filtered_queryset = filtered_queryset.filter(Q(customer__icontains=customer_filter))
 
         buffer = BytesIO()
         doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
@@ -111,6 +112,5 @@ class InquiryAdmin(DjangoObjectActions, admin.ModelAdmin):
         response = HttpResponse(buffer, content_type='application/pdf')
         response['Content-Disposition'] = 'attachment; filename="inquiries.pdf"'
         return response
-
 
     changelist_actions = ('save_as_pdf',)

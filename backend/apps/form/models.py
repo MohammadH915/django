@@ -289,7 +289,7 @@ class TechnicalOffer(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.inquiry
+        return self.technical_number
 
 
 class CommercialOffer(models.Model):

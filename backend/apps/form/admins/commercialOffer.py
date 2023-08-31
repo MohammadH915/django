@@ -15,7 +15,7 @@ class CommercialOfferNumber(InputFilter):
             CommercialOffer_number = self.value()
 
             return queryset.filter(
-                Q(CommercialOffer_number=CommercialOffer_number)
+                Q(CommercialOffer_number__icontains=CommercialOffer_number)
             )
 
 
@@ -28,7 +28,7 @@ class Inquiry(InputFilter):
             inquiry = self.value()
 
             return queryset.filter(
-                Q(inquiry=inquiry)
+                Q(inquiry__icontains=inquiry)
             )
 
 
@@ -41,7 +41,7 @@ class Expert(InputFilter):
             expert = self.value()
 
             return queryset.filter(
-                Q(expert=expert)
+                Q(expert__icontains=expert)
             )
 
 
