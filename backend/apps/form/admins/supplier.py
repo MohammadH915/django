@@ -14,7 +14,7 @@ class CompanyName(InputFilter):
             company_name = self.value()
 
             return queryset.filter(
-                Q(company_name=company_name)
+                Q(company_name__icontains=company_name)
             )
 
 
@@ -27,7 +27,7 @@ class Email(InputFilter):
             email = self.value()
 
             return queryset.filter(
-                Q(email=email)
+                Q(email__icontains=email)
             )
 
 
@@ -40,7 +40,7 @@ class Website(InputFilter):
             website = self.value()
 
             return queryset.filter(
-                Q(website=website)
+                Q(website__icontains=website)
             )
 
 

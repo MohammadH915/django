@@ -15,7 +15,7 @@ class Name(InputFilter):
             name = self.value()
 
             return queryset.filter(
-                Q(name=name)
+                Q(name__icontains=name)
             )
 
 
@@ -28,7 +28,7 @@ class Email(InputFilter):
             email = self.value()
 
             return queryset.filter(
-                Q(email=email)
+                Q(email__icontains=email)
             )
 
 

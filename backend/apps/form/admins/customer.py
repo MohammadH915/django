@@ -14,7 +14,7 @@ class Company(InputFilter):
             company = self.value()
 
             return queryset.filter(
-                Q(company=company)
+                Q(company__icontains=company)
             )
 
 
