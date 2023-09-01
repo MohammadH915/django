@@ -8,8 +8,7 @@ from django.http import HttpResponse
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import landscape, letter
 from reportlab.platypus import Table, TableStyle, SimpleDocTemplate
-
-from .util import InputFilter, CustomAdminDateWidget
+from .util import InputFilter, CustomAdminDateWidget, Brand
 from django_object_actions import DjangoObjectActions, action
 
 from ..models import Inquiry
@@ -41,6 +40,19 @@ class Customer(InputFilter):
             )
 
 
+class Expert(InputFilter):
+    parameter_name = 'Expert'
+    title = 'Expert'
+
+    def queryset(self, request, queryset):
+        if self.value() is not None:
+            expert = self.value()
+
+            return queryset.filter(
+                Q(expert__icontains=expert)
+            )
+
+
 def get_color(row_number):
     if row_number % 2 == 0:
         return colors.lightgrey
@@ -50,7 +62,7 @@ def get_color(row_number):
 
 class InquiryAdmin(DjangoObjectActions, admin.ModelAdmin):
     list_display = ['inquiry_number', 'status', 'date', 'deadline', 'customer', 'expert', 'category', 'brand']
-    list_filter = [InquiryNumber, Customer, 'status', 'inquiry_type', 'assign', 'date', 'deadline']
+    list_filter = [InquiryNumber, Customer, Expert, Brand, 'status', 'inquiry_type', 'assign', 'date', 'deadline']
     search_fields = ['inquiry_number', 'status']
     autocomplete_fields = ['customer', 'expert']
     formfield_overrides = {

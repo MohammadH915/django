@@ -34,7 +34,7 @@ class Email(InputFilter):
 
 class ExpertAdmin(admin.ModelAdmin):
     list_display = ['name', 'email', 'customer']
-    search_fields = ['name', 'email', 'customer']
+    search_fields = ['name']
     list_filter = [Name, Email, Customer]
     formfield_overrides = {
         models.CharField: {'widget': TextInput(attrs={'autocomplete': 'off', 'class': 'vTextField'})},
