@@ -41,7 +41,7 @@ class Expert(InputFilter):
             expert = self.value()
 
             return queryset.filter(
-                Q(expert__icontains=expert)
+                Q(expert__name__icontains=expert)
             )
 
 
