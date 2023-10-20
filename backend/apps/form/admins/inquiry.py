@@ -6,10 +6,9 @@ from django.db.models import Q
 from django.forms import TextInput
 from django.http import HttpResponse
 from reportlab.lib import colors
-from reportlab.lib.pagesizes import landscape, letter
+from reportlab.lib.pagesizes import landscape, letter, A4
 from reportlab.platypus import Table, TableStyle, SimpleDocTemplate
 from .util import InputFilter, CustomAdminDateWidget, Brand
-from django_object_actions import DjangoObjectActions, action
 
 from ..models import Inquiry
 
@@ -36,8 +35,9 @@ class Customer(InputFilter):
             customer = self.value()
 
             return queryset.filter(
-                Q(customer__icontains=customer)
+                Q(customer__company__icontains=customer)
             )
+
 
 
 class Expert(InputFilter):
@@ -49,8 +49,9 @@ class Expert(InputFilter):
             expert = self.value()
 
             return queryset.filter(
-                Q(expert__icontains=expert)
+                Q(expert__name__icontains=expert)
             )
+
 
 
 def get_color(row_number):
@@ -60,7 +61,7 @@ def get_color(row_number):
         return colors.white
 
 
-class InquiryAdmin(DjangoObjectActions, admin.ModelAdmin):
+class InquiryAdmin(admin.ModelAdmin):
     list_display = ['inquiry_number', 'status', 'date', 'deadline', 'customer', 'expert', 'category', 'brand']
     list_filter = [InquiryNumber, Customer, Expert, Brand, 'status', 'inquiry_type', 'assign', 'date', 'deadline']
     search_fields = ['inquiry_number', 'status']
@@ -73,30 +74,18 @@ class InquiryAdmin(DjangoObjectActions, admin.ModelAdmin):
         models.DateField: {'widget': CustomAdminDateWidget},
     }
 
-    @action(
-        label="Save As pdf",  # optional
-        description="Save As pdf"  # optional
-    )
+    @admin.action
     def save_as_pdf(self, request, queryset):
-        inquiry_number_filter = request.GET.get('Inquiry Number')
-        customer_filter = request.GET.get('customer')
-
-        # Apply filters to the queryset
-        filtered_queryset = queryset
-        if inquiry_number_filter:
-            filtered_queryset = filtered_queryset.filter(Q(inquiry_number__icontains=inquiry_number_filter))
-        if customer_filter:
-            filtered_queryset = filtered_queryset.filter(Q(customer__icontains=customer_filter))
-
         buffer = BytesIO()
-        doc = SimpleDocTemplate(buffer, pagesize=landscape(letter))
+        doc = SimpleDocTemplate(buffer, pagesize=A4)
         elements = []
+        bad = ['note', 'brand', 'category', 'product_type']
 
-        header = [field.verbose_name.capitalize() for field in Inquiry._meta.fields]
+        header = [field.verbose_name.capitalize() for field in Inquiry._meta.fields if field.name not in bad]
         data = [header]
 
-        for inquiry in filtered_queryset:
-            row = [str(getattr(inquiry, field.name)) for field in inquiry._meta.fields]
+        for inquiry in queryset:
+            row = [str(getattr(inquiry, field.name)) for field in Inquiry._meta.fields if field.name not in bad]
             data.append(row)
 
         table = Table(data)
@@ -106,7 +95,9 @@ class InquiryAdmin(DjangoObjectActions, admin.ModelAdmin):
             ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
             ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
             ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+            ('FONTSIZE', (0, 0), (-1, 0), 5),  # Font size for header row
+            ('FONTSIZE', (0, 1), (-1, -1), 5),  # Font size for data rows (e.g., 14)
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 5),
             ('GRID', (0, 0), (-1, -1), 1, (0.3, 0.3, 0.3)),
         ])
 
@@ -125,4 +116,5 @@ class InquiryAdmin(DjangoObjectActions, admin.ModelAdmin):
         response['Content-Disposition'] = 'attachment; filename="inquiries.pdf"'
         return response
 
-    changelist_actions = ('save_as_pdf',)
+    actions = ['save_as_pdf',]
+
