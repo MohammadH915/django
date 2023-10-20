@@ -1,0 +1,143 @@
+/* General styles for the navigation */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+nav {
+  background-color: #f8f8f8;
+  padding: 15px 40px;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+}
+
+.nav-links li {
+  display: inline;
+  margin-right: 20px;
+}
+
+.nav-links li a {
+  color: #555555;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.nav-links li a:hover {
+  color: #000000;
+  font-weight: bold;
+}
+
+/* Form container styles */
+.form-container {
+  max-width: 750px;
+  margin: 75px auto;
+  padding: 50px;
+  background-color: #ffffff;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+}
+
+/* Heading styles */
+.form-container h1 {
+  text-align: center;
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: #0072ff;
+}
+
+/* Form label styles */
+.form-container label {
+  display: block;
+  margin-top: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Form input styles */
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="date"],
+.form-container input[type="number"],
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  font-size: 16px;
+  transition: border-color 0.2s;
+}
+
+.form-container input[type="text"]:focus,
+.form-container input[type="email"]:focus,
+.form-container input[type="date"]:focus,
+.form-container input[type="number"]:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+  border-color: #0072ff;
+}
+
+.form-container .form-control {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  font-size: 16px;
+  transition: border-color 0.2s;
+}
+
+.form-container .form-control:focus {
+  border-color: #0072ff;
+}
+
+/* Form textarea styles */
+.form-container textarea {
+  resize: vertical;
+  min-height: 180px;
+}
+
+/* Form button styles */
+.form-container input[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  background-color: #0072ff;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+/* Form button hover effect */
+.form-container input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #bababa;
+}

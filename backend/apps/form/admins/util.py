@@ -37,7 +37,7 @@ class Customer(InputFilter):
             customer = self.value()
 
             return queryset.filter(
-                Q(customer__icontains=customer)
+                Q(customer__company__icontains=customer)
             )
 
 
@@ -50,7 +50,7 @@ class Expert(InputFilter):
             expert = self.value()
 
             return queryset.filter(
-                Q(expert__icontains=expert)
+                Q(expert__name__icontains=expert)
             )
 
 
