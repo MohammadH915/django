@@ -114,7 +114,7 @@ class Supplier(InputFilter):
             supplier = self.value()
 
             return queryset.filter(
-                Q(supplier__icontains=supplier)
+                Q(supplier__company_name__icontains=supplier)
             )
 
 

@@ -11,6 +11,7 @@ from .purchaseOrder import *
 from .forwarder import *
 from .advance_payment_supplier import *
 from .balance_payment_supplier import *
+from .shipping import *
 __all__ = [
     'InquiryAdmin',
     'OrderRegistrationAdmin',
@@ -25,4 +26,5 @@ __all__ = [
     'ForwarderAdmin',
     'AdvancePaymentSupplierAdmin',
     'BalancePaymentSupplierAdmin',
+    'ShippingAdmin',
 ]
