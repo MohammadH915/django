@@ -62,8 +62,8 @@ def get_color(row_number):
 
 
 class InquiryAdmin(admin.ModelAdmin):
-    list_display = ['inquiry_number', 'status', 'date', 'deadline', 'customer', 'expert', 'category', 'brand']
-    list_filter = [InquiryNumber, Customer, Expert, Brand, 'status', 'inquiry_type', 'assign', 'date', 'deadline']
+    list_display = ['inquiry_number', 'status', 'inquiry_date', 'to_date', 'co_date', 'po_date', 'customer', 'expert', 'category', 'brand']
+    list_filter = [InquiryNumber, Customer, Expert, Brand, 'status', 'inquiry_type', 'assign',  'inquiry_date', 'to_date', 'co_date', 'po_date']
     search_fields = ['inquiry_number', 'status']
     autocomplete_fields = ['customer', 'expert']
     formfield_overrides = {

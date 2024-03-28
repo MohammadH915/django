@@ -109,31 +109,23 @@ class Inquiry(models.Model):
     inquiry_number = models.CharField(max_length=20, primary_key=True)
     status_choices = (
         ('Inquiry', 'Inquiry'),
-
         ('Request', 'Request'),
-
         ('Quotation', 'Quotation'),
         ('Technical offer', 'Technical offer'),
         ('Technical Confirmation', 'Technical Confirmation'),
-
         ('Technical Revise', 'Technical Revise'),
         ('Commercial offer', 'Commercial offer'),
         ('CO Win', 'CO Win'),
-
         ('CO Lose', 'CO Lose'),
         ('Close', 'Close'),
         ('Purchase Order', 'Purchase Order'),
-
         ('Placing the Order', 'Placing the Order'),
         ('Po Lead Time', 'Po Lead Time'),
-
         ('Shipping', 'Shipping'),
         ('Delivery of Documents', 'Delivery of Documents'),
-
         ('Custom', 'Custom'),
         ('Custome Clearance', 'Custome Clearance'),
         ('Bank Documents', 'Bank Documents'),
-
         ('Decline', 'Decline'),
         ('Close', 'Close'),
     )
@@ -143,8 +135,10 @@ class Inquiry(models.Model):
         ('Indent', 'Indent'),
     )
     inquiry_type = models.CharField(max_length=10, choices=inquiry_type_choices)
-    date = models.DateField()
-    deadline = models.DateField()
+    inquiry_date = models.DateField()  # Changed from "date" to "inquiry_date"
+    to_date = models.DateField(null=True, blank=True)  # Changed from "deadline" to "to_date"
+    co_date = models.DateField(null=True, blank=True)  # Added "CO Date"
+    po_date = models.DateField(null=True, blank=True)  # Added "PO Date"
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE, to_field='company')
     expert = models.ForeignKey(Expert, on_delete=models.CASCADE)
     email_address = models.EmailField()
@@ -165,7 +159,6 @@ class Inquiry(models.Model):
 
     def __str__(self):
         return self.inquiry_number
-
 
 class Supplier(models.Model):
     company_name = models.CharField(max_length=100, primary_key=True)
